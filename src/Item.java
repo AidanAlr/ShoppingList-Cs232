@@ -24,7 +24,6 @@ public class Item {
                 }
             }
         }
-        System.out.println("Item not present in current list!");
         return false;
     }
 }

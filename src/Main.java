@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
         //Creating the user
@@ -14,9 +16,17 @@ public class Main {
 
         }
         //Printing the list
-        user.printShoppingList();
-        user.sortShoppingList();
+        System.out.println("Shopping List: ");
+        user.printList(user.getShoppingList());
+
+        // Making Purchases
         user.makePurchases(10);
+        System.out.println("Purchases: ");
+        user.printList(user.getPurchasedList());
+
+
+        System.out.println("Not purchased: ");
+        user.printList(user.getNotPurchasedList());
 
     }
 }
