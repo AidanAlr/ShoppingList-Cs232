@@ -1,18 +1,19 @@
 public class Item {
     String description;
     int priority;
-    int price = 0;
+    double cost;
 
-    public Item(String des, int prior, int cost){
+
+    public Item(String des, int pri, double cos){
         description = des;
-        priority = prior;
-        price = cost;
+        priority = pri;
+        cost = cos;
     }
 
     public boolean Equals(Item j){
-        return ((description.equalsIgnoreCase(j.description))
-                && (priority == j.priority)
-                && (price == j.price));
+        return (description.equalsIgnoreCase(j.description));
+//                && (priority == j.priority)
+//                && (cost == j.cost));
     }
 
     public boolean Present(Item[] shoppingList){
@@ -20,7 +21,7 @@ public class Item {
             if (i != null){
                 if (this.Equals(i)){
                     return true;
-                };
+                }
             }
         }
         System.out.println("Item not present in current list!");
