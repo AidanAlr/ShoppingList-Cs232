@@ -15,5 +15,8 @@ public class Main {
         }
         //Printing the list
         user.printShoppingList();
+        user.sortShoppingList();
+        user.makePurchases(10);
+
     }
 }

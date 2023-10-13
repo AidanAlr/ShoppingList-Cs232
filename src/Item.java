@@ -10,16 +10,16 @@ public class Item {
         cost = cos;
     }
 
-    public boolean Equals(Item j){
+    public boolean equals(Item j){
         return (description.equalsIgnoreCase(j.description));
 //                && (priority == j.priority)
 //                && (cost == j.cost));
     }
 
-    public boolean Present(Item[] shoppingList){
+    public boolean present(Item[] shoppingList){
         for (Item i : shoppingList){
             if (i != null){
-                if (this.Equals(i)){
+                if (this.equals(i)){
                     return true;
                 }
             }
