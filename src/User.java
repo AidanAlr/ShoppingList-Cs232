@@ -2,20 +2,32 @@ import java.util.Scanner;
 
 public class User {
 
-    private Item[] shoppingList = new Item[askListSize()];
+    //Creating the shopping list attribute
+    private Item[] shoppingList;
+
+    //Creating a counter to keep track of the number of items created
     int counter = 1;
 
+
+    //getShoppingList() method returns the user's shopping list
     public Item[] getShoppingList() {
         return shoppingList;
     }
 
+    //setShoppingList() method sets the user's shopping list length
+    public void setShoppingList() {
+        this.shoppingList = new Item[askListSize()];
+    }
+    //askListSize() method asks the user how many items they want to add to their list
     public int askListSize() {
         Scanner sc = new Scanner(System.in);
         System.out.println("How many items do you want to add to your list?");
         return sc.nextInt();
     }
 
-
+    //addToShoppingList() method asks the user for the description, priority,
+    // and cost of the item they want to add to their list and adds it to the
+    // list if it is not already present
     public boolean addToShoppingList() {
         Scanner sc = new Scanner(System.in);
 
@@ -44,8 +56,7 @@ public class User {
             return false;
     }
 
-
-
+    //printShoppingList() method prints the user's shopping list
     public void printShoppingList() {
         System.out.println("Your shopping list is: ");
         for (Item i : shoppingList) {
