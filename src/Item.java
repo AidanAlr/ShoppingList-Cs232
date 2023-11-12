@@ -1,29 +1,38 @@
-public class Item {
-    String description;
-    int priority;
-    double cost;
+public abstract class Item{
+    private String description;
+    private int priority;
+    private double cost;
+
+    public Item(String des, int pri, double cos) {
+    }
 
 
-    public Item(String des, int pri, double cos){
-        description = des;
-        priority = pri;
-        cost = cos;
+    public int getPriority(){
+        return priority;
+    }
+
+
+    public String getDescription(){
+        return description;
+    }
+
+
+    public double getCost(){
+        return cost;
     }
 
     public boolean equals(Item j){
-        return (description.equalsIgnoreCase(j.description));
-//                && (priority == j.priority)
-//                && (cost == j.cost));
+        return (description.equalsIgnoreCase(j.description) || priority == j.priority);//                && (cost == j.cost));
     }
 
-    public boolean present(Item[] shoppingList){
+    public boolean notPresent(Item[] shoppingList){
         for (Item i : shoppingList){
             if (i != null){
                 if (this.equals(i)){
-                    return true;
+                    return false;
                 }
             }
         }
-        return false;
+        return true;
     }
 }

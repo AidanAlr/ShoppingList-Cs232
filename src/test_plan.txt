@@ -1,0 +1,7 @@
+Run program.
+Enter the number of items to add to the list.
+Enter item description, priority, price for all items.
+This will print your shopping list.
+Enter your budget, or leave blank for default 59$.
+This will print your transactions and leftover budget as well as your purchase list and not purchased list.
+

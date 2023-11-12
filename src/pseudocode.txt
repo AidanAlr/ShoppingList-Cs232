@@ -1,0 +1,16 @@
+Create a item class with 3 private attributes description, priority and cost.
+Create a user class with a shopping list attribute, as well as a purchased list, and not purchased list.
+Ask the user to enter the number of items that he would like to add to shopping list.
+Create empty array of this size.
+Ask for item description, priority and cost and create an item object using constructor, add to shopping list.
+Check that each item is not present in the shopping list by checking that the description or priority is not equal
+to another item already in the shopping list.
+When comparing attributes between item we use our custom equals method that utilises getters to compare the attributes.
+If the item is not present in the shopping list, add it to the shopping list.
+Sort the shopping list by priority.
+Once all items are added to the shopping list, ask the user to enter there budget.
+Buy item from the shopping list in order of priority.Add to user.purchased list.
+Subtract the cost of the item from the budget.
+If the price of an item is greater than the budget move it to the not purchased list and move on.
+Once the budget is less than the cost of all the remaining items stop purchasing.
+Print the purchased list, not purchased list and the leftover budget.

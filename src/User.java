@@ -1,11 +1,11 @@
-import jdk.jshell.execution.Util;
-
-import javax.swing.text.Utilities;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Scanner;
+import java.text.DecimalFormat;
 
 public class User {
+
+    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     //Creating the shopping list attribute
     private Item[] shoppingList;
@@ -22,7 +22,7 @@ public class User {
         return shoppingList;
     }
 
-    //setShoppingList() method sets the user's shopping list length
+    //setShoppingList() method sets the user's empty shopping list
     public void setShoppingList() {
         this.shoppingList = new Item[askListSize()];
     }
@@ -37,39 +37,71 @@ public class User {
 
     //askListSize() method asks the user how many items they want to add to their list
     public int askListSize() {
+        while (true){
+        try{
         Scanner sc = new Scanner(System.in);
         System.out.println("How many items do you want to add to your list?");
         return sc.nextInt();
-    }
+        }
+        catch (Exception e){
+            System.out.println("Invalid integer.");
+        }
+    }}
 
     //addToShoppingList() method asks the user for the description, priority,
     // and cost of the item they want to add to their list and adds it to the
     // list if it is not already present
-    public boolean addToShoppingList() {
+    public boolean addItemToShoppingList() {
         Scanner sc = new Scanner(System.in);
 
+        System.out.println("Please enter item category(food, clothing, or home): ");
+        String category = sc.nextLine();
+
         System.out.println("Please enter item " + (counter) + " description: ");
-        String description = sc.next();
+        String description = sc.nextLine();
 
-        System.out.println("Please enter item " + (counter) + " priority: ");
-        int priority = sc.nextInt();
+        int priority;
+        while (true) {
+            System.out.println("Please enter item " + (counter) + " priority: ");
+            String input = sc.nextLine();
+            if (input.matches("^[0-9].*")){
+                priority = Integer.parseInt(input);
+                break;
+            }
+            else{
+                System.out.println("Invalid priority!");
+            }
+        }
 
-        System.out.println("Please enter item " + (counter) + " cost: ");
-        double cost = sc.nextDouble();
+        double cost;
+        while (true) {
+            System.out.println("Please enter item " + (counter) + " cost: ");
+            String input = sc.nextLine();
+            if (input.matches("(\\-?\\d*\\.?\\d+)")) {
+                cost = Double.parseDouble(input);
+                break;
+            }
+            else{
+                System.out.println("Invalid price!");
+            }
+        }
 
-        Item item = new Item(description, priority, cost);
 
-        if (!item.present(shoppingList)) {
+
+
+
+
+        if (item.notPresent(shoppingList)) {
             for (int j = 0; j < shoppingList.length; j++) {
                 if (shoppingList[j] == null) {
                     shoppingList[j] = item;
-                    System.out.println(item.description + " added to list!");
+                    System.out.println(item.getDescription() + " added to list!");
                     counter++;
                     return true;
                 }
             }
         }
-        System.out.println("Item already present in list! Please try again.");
+        System.out.println("You have entered a non unique item. Please try again.");
             return false;
     }
 
@@ -84,17 +116,17 @@ public class User {
         for (Item i : list) {
             if (i != null) {
 
-                String descColumn = blank.repeat(5)+i.description + blank.repeat(8-i.description.length());
-                String prioColumn = blank.repeat(5)+ i.priority + blank.repeat(7-Double.toString(i.priority).length());
-                String costColumn = blank.repeat(2)+i.cost + blank.repeat(5-Double.toString(i.cost).length());
+                String descColumn = blank +i.getDescription() + blank.repeat(12- i.getDescription().length());
+                String priorColumn = blank.repeat(5)+ i.getPriority() + blank.repeat(7-Double.toString(i.getPriority()).length());
+                String costColumn = blank.repeat(1)+ df.format(i.getCost()) + blank.repeat(5-Double.toString(i.getCost()).length());
 
-                System.out.println("|" + descColumn+ "|" + prioColumn + "|" + costColumn + "|");
+                System.out.println("|" + descColumn+ "|" + priorColumn + "|" + costColumn + "|");
             }
         }
     }
 
-    private void sortShoppingList(){
-    Arrays.sort(shoppingList, Comparator.comparingInt(i -> i.priority));
+    public void sortShoppingList(){
+    Arrays.sort(shoppingList, Comparator.comparingInt(i -> i.getPriority()));
     }
 
 
@@ -109,29 +141,32 @@ public class User {
 
         for (Item i: shoppingList){
 
-            if (i.cost <= budget){
+            if (i.getCost() <= budget){
                 purchases[ctr] = i;
-                budget -= i.cost;
-                System.out.println("Purchased " + i.description +"(Priority "+i.priority+ ") for " + i.cost + " -> " + budget + " remaining");
+                budget -= i.getCost();
+                System.out.println("Purchased " + i.getDescription() +"(Priority "+ i.getPriority() + ") for " + df.format(i.getCost()) + " -> " + df.format(budget) + " remaining");
                 ctr++;
 
             }
             else {
-                System.out.println("Can't afford " + i.description + " for " + i.cost + " -> "+ budget + " remaining");
+                System.out.println("Can't afford " + i.getDescription() + " for " + df.format(i.getCost()) + " -> "+ df.format(budget) + " remaining");
             }
         }
+
+        System.out.println("Leftover budget: " + df.format(budget));
 
         purchases = removeNull(purchases);
         purchasedList = purchases;
 
         for(int i=0; i<shoppingList.length; i++ ){
-            if (!shoppingList[i].present(purchases)){
+            if (shoppingList[i].notPresent(purchases)){
                 notPurchasedList[i] = shoppingList[i];
             }
         }
         notPurchasedList = removeNull(notPurchasedList);
     }
 
+//    Removes null objects from an array
     private Item[] removeNull(Item[] list){
 
         // Count the number of non-null items
