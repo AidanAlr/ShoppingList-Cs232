@@ -4,12 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="945c7ac0-89b2-4120-a66e-9bdea6249003" name="Changes" comment="Rework">
-      <change afterPath="$PROJECT_DIR$/src/Bubble.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UserInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/removeNull.java" afterDir="false" />
+    <list default="true" id="945c7ac0-89b2-4120-a66e-9bdea6249003" name="Changes" comment="new">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shopping list cs232.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Bubble.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bubble.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ClothingItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClothingItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FoodItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FoodItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HomeItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HomeItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ItemInterface.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ItemParent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UserInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/removeNull.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/removeNull.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +71,21 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="ShoppingList-Cs232" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="ShoppingList-Cs232" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -84,6 +106,7 @@
       <workItem from="1699397760739" duration="3039000" />
       <workItem from="1699745062326" duration="975000" />
       <workItem from="1699820107939" duration="5341000" />
+      <workItem from="1699851591888" duration="1284000" />
     </task>
     <task id="LOCAL-00001" summary="Rework">
       <option name="closed" value="true" />

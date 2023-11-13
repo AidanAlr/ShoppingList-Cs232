@@ -1,6 +1,6 @@
-public class HomeItem extends ItemParent {
-    public HomeItem(String des, int pri, double cos) {
-        super(des, pri, cos);
+public class HomeItem extends Item {
+    public HomeItem(String description, int priority, double cost) {
+        super(description, priority, cost);
     }
 
 }

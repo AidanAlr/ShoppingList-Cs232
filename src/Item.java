@@ -1,9 +1,9 @@
-public abstract class ItemParent {
+public abstract class Item {
     private final String description;
     private final int priority;
     private final double cost;
 
-    public ItemParent(String des, int pri, double cos) {
+    public Item(String des, int pri, double cos) {
         this.description = des;
         this.priority = pri;
         this.cost = cos;
@@ -25,12 +25,12 @@ public abstract class ItemParent {
         return cost;
     }
 
-    public boolean equals(ItemParent j){
+    public boolean equals(Item j){
         return (description.equalsIgnoreCase(j.description) || priority == j.priority);//                && (cost == j.cost));
     }
 
-    public boolean notPresent(ItemParent[] shoppingList){
-        for (ItemParent i : shoppingList){
+    public boolean notPresent(Item[] shoppingList){
+        for (Item i : shoppingList){
             if (i != null){
                 if (this.equals(i)){
                     return false;

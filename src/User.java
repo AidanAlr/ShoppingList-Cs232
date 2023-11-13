@@ -1,91 +1,113 @@
+import java.util.Arrays;
 import java.util.Scanner;
 import java.text.DecimalFormat;
+import java.util.List;
 
-public class User implements UserInterface{
+// The User class implements the UserInterface interface
+public class User implements UserInterface {
 
+    // DecimalFormat to format double values with two decimal places
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
-    //Creating the shopping list attribute
-    private ItemParent[] shoppingList;
-    private ItemParent[] purchasedList;
-    private ItemParent[] notPurchasedList = new ItemParent[10];
+    // Attributes for shopping lists and a counter to track the number of items created
+    private Item[] shoppingList;
+    private Item[] purchasedList;
+    private Item[] notPurchasedList = new Item[10];
 
-
-    //Creating a counter to keep track of the number of items created
+    // Counter to keep track of the number of items created
     int counter = 1;
 
-
-    //getShoppingList() method returns the user's shopping list
-    public ItemParent[] getShoppingList() {
+    // Method to get the user's shopping list
+    public Item[] getShoppingList() {
         return shoppingList;
     }
 
-    //setShoppingList() method sets the user's empty shopping list
+    // Method to set the user's empty shopping list
     public void setShoppingList() {
-        this.shoppingList = new ItemParent[askListSize()];
+        this.shoppingList = new Item[askListSize()];
     }
 
-    public ItemParent[] getPurchasedList(){
+    // Method to get the user's purchased list
+    public Item[] getPurchasedList(){
         return purchasedList;
     }
 
-    public ItemParent[] getNotPurchasedList(){
+    // Method to get the user's not purchased list
+    public Item[] getNotPurchasedList(){
         return notPurchasedList;
     }
 
-    //askListSize() method asks the user how many items they want to add to their list
+    // Method to ask the user how many items they want to add to their list
     public int askListSize() {
         while (true){
-        try{
-        Scanner sc = new Scanner(System.in);
-        System.out.println("How many items do you want to add to your list?");
-        return sc.nextInt();
+            try{
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("How many items do you want to add to your list?");
+                return scanner.nextInt();
+            }
+            catch (Exception e){
+                System.out.println("Invalid integer.");
+            }
         }
-        catch (Exception e){
-            System.out.println("Invalid integer.");
-        }
-    }}
+    }
 
-    //addToShoppingList() method asks the user for the description, priority,
-    // and cost of the item they want to add to their list and adds it to the
-    // list if it is not already present
+    // Method to add an item to the shopping list
     public boolean addItemToShoppingList() {
-        Scanner sc = new Scanner(System.in);
+        // Scanner for user input
+        Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Please enter item category(food, clothing, or home): ");
-        String category = sc.nextLine().toLowerCase();
+        // Get item category from the user
+        boolean validCategory = false;
+        String categoryEntry;
+        do {
+            System.out.println("Please enter item category(food, clothing, or home): ");
+            categoryEntry = scanner.nextLine().toLowerCase();
+
+            String[] categoryOptions = {"food", "home", "clothing"};
+            List<String> categoriesList = Arrays.asList(categoryOptions);
+
+            if (categoriesList.contains(categoryEntry)) {
+                validCategory = true;
+            }
+            else{
+                System.out.println("Invalid Category");
+            }
+        }
+        while (!validCategory);
 
 
-        System.out.println("Please enter a description of your " + category + " item");
-        String description = sc.nextLine();
+        // Get item description from the user
+        System.out.println("Please enter a description of your " + categoryEntry + " item");
+        String description = scanner.nextLine();
 
+        // Get item priority from the user with input validation
         int priority;
         while (true) {
             System.out.println("Please enter the priority of " + (description));
-            String input = sc.nextLine();
-            if (input.matches("^[0-9].*")){
+            String input = scanner.nextLine();
+            if (input.matches("^[0-9].*")) {
                 priority = Integer.parseInt(input);
                 break;
-            }
-            else{
+            } else {
                 System.out.println("Invalid priority!");
             }
         }
 
+        // Get item cost from the user with input validation
         double cost;
         while (true) {
-            System.out.println("Please enter item " + (counter) + " cost: ");
-            String input = sc.nextLine();
+            System.out.println("Please enter the cost of  " + description);
+            String input = scanner.nextLine();
             if (input.matches("(-?\\d*\\.?\\d+)")) {
                 cost = Double.parseDouble(input);
                 break;
-            }
-            else{
+            } else {
                 System.out.println("Invalid price!");
             }
         }
 
-        switch (category){
+        // Create the appropriate item based on the category and add it to the shopping list
+        switch (categoryEntry) {
             case "home":
                 addItemToSL(new HomeItem(description, priority, cost));
                 return true;
@@ -98,68 +120,70 @@ public class User implements UserInterface{
             default:
                 System.out.println("Incorrect Category");
                 return false;
-
         }
     }
 
-
-    public void addItemToSL(ItemParent item){
+    // Method to add an item to the shopping list
+    public void addItemToSL(Item item){
         if (item.notPresent(shoppingList)) {
             for (int j = 0; j < shoppingList.length; j++) {
                 if (shoppingList[j] == null) {
                     shoppingList[j] = item;
                     System.out.println(item.getDescription() + " added to list!");
                     counter++;
-                    return;
+                    break;
                 }
             }
         }
-        System.out.println("You have entered a non unique item. Please try again.");
+        else{
+            System.out.println("You have entered a non-unique item. Please try again.");
+        }
     }
 
-    //printShoppingList() method prints the user's shopping list
-    public void printList(ItemParent[] list) {
+    // Method to print the shopping list
+    public void printList(Item[] list) {
         System.out.println("---------------------------------------------");
         System.out.printf("%-13s %-10s %-10s %-10s%n","| Category", "| Description","| Priority", "| Price |");
         System.out.println("---------------------------------------------");
 
         String blank = " ";
 
-        for (ItemParent i : list) {
+        // Iterate through the list and print each item
+        for (Item i : list) {
             if (i != null) {
-                String categoryColumn = blank+ String.valueOf(i.getClass()).split(" ")[1] + blank.repeat(12 - String.valueOf(i.getClass()).split(" ")[1].length());
-                String descColumn = blank +i.getDescription() + blank.repeat(12- i.getDescription().length());
-                String priorColumn = blank.repeat(5)+ i.getPriority() + blank.repeat(7-Double.toString(i.getPriority()).length());
-                String costColumn = blank.repeat(1)+ df.format(i.getCost()) + blank.repeat(5-Double.toString(i.getCost()).length());
+                // Format and print each column of the item
+                String categoryColumn = blank + String.valueOf(i.getClass()).split(" ")[1] + blank.repeat(12 - String.valueOf(i.getClass()).split(" ")[1].length());
+                String descColumn = blank + i.getDescription() + blank.repeat(12 - i.getDescription().length());
+                String priorColumn = blank.repeat(5) + i.getPriority() + blank.repeat(7 - Double.toString(i.getPriority()).length());
+                String costColumn = blank.repeat(1) + df.format(i.getCost()) + blank.repeat(5 - Double.toString(i.getCost()).length());
 
-                System.out.println("|" +categoryColumn+ "|" + descColumn+ "|" + priorColumn + "|" + costColumn + "|");
+                System.out.println("|" + categoryColumn + "|" + descColumn + "|" + priorColumn + "|" + costColumn + "|");
             }
         }
     }
 
+    // Method to sort the shopping list using bubble sort
     public void sortShoppingList(){
-    Bubble b = new Bubble();
-    shoppingList = b.bubblesort(shoppingList);
+        Bubble b = new Bubble();
+        shoppingList = b.bubblesort(shoppingList);
     }
 
-
+    // Method to make purchases based on a given budget
     public void makePurchases(double budget){
-
         sortShoppingList();
-        ItemParent[] purchases = new ItemParent[10];
+        Item[] purchases = new Item[10];
 
         int ctr = 0;
 
         System.out.println("Your initial budget is: " + budget);
 
-        for (ItemParent i: shoppingList){
-
+        // Iterate through the shopping list and make purchases
+        for (Item i: shoppingList){
             if (i.getCost() <= budget){
                 purchases[ctr] = i;
                 budget -= i.getCost();
-                System.out.println("Purchased " + i.getDescription() +"(Priority "+ i.getPriority() + ") for " + df.format(i.getCost()) + " -> " + df.format(budget) + " remaining");
+                System.out.println("Purchased " + i.getDescription() + "(Priority " + i.getPriority() + ") for " + df.format(i.getCost()) + " -> " + df.format(budget) + " remaining");
                 ctr++;
-
             }
             else {
                 System.out.println("Can't afford " + i.getDescription() + " for " + df.format(i.getCost()) + " -> "+ df.format(budget) + " remaining");
@@ -168,18 +192,18 @@ public class User implements UserInterface{
 
         System.out.println("Leftover budget: " + df.format(budget));
 
-//        Calling remove null class to help us remove unwanted nulls
-        removeNull rn = new removeNull();
+        // Call the removeNull class to remove unwanted nulls
+        removeNull removeNull = new removeNull();
 
-        purchases = rn.execute(purchases);
+        purchases = removeNull.execute(purchases);
         purchasedList = purchases;
 
+        // Iterate through the shopping list to populate the not purchased list
         for(int i=0; i<shoppingList.length; i++ ){
             if (shoppingList[i].notPresent(purchases)){
                 notPurchasedList[i] = shoppingList[i];
             }
         }
-        notPurchasedList = rn.execute(notPurchasedList);
+        notPurchasedList = removeNull.execute(notPurchasedList);
     }
-
 }
