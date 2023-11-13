@@ -1,3 +1,4 @@
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Scanner;
@@ -8,9 +9,9 @@ public class User {
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
     //Creating the shopping list attribute
-    private Item[] shoppingList;
-    private Item[] purchasedList;
-    private Item[] notPurchasedList = new Item[10];
+    private ItemParent[] shoppingList;
+    private ItemParent[] purchasedList;
+    private ItemParent[] notPurchasedList = new ItemParent[10];
 
 
     //Creating a counter to keep track of the number of items created
@@ -18,20 +19,20 @@ public class User {
 
 
     //getShoppingList() method returns the user's shopping list
-    public Item[] getShoppingList() {
+    public ItemParent[] getShoppingList() {
         return shoppingList;
     }
 
     //setShoppingList() method sets the user's empty shopping list
     public void setShoppingList() {
-        this.shoppingList = new Item[askListSize()];
+        this.shoppingList = new ItemParent[askListSize()];
     }
 
-    public Item[] getPurchasedList(){
+    public ItemParent[] getPurchasedList(){
         return purchasedList;
     }
 
-    public Item[] getNotPurchasedList(){
+    public ItemParent[] getNotPurchasedList(){
         return notPurchasedList;
     }
 
@@ -55,7 +56,8 @@ public class User {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Please enter item category(food, clothing, or home): ");
-        String category = sc.nextLine();
+        String category = sc.nextLine().toLowerCase();
+
 
         System.out.println("Please enter item " + (counter) + " description: ");
         String description = sc.nextLine();
@@ -86,41 +88,52 @@ public class User {
             }
         }
 
+        switch (category){
+            case "home":
+                addItemToSL(new HomeItem(description, priority, cost));
+                return true;
+            case "food":
+                addItemToSL(new FoodItem(description, priority, cost));
+                return true;
+            case "clothing":
+                addItemToSL(new ClothingItem(description, priority, cost));
+                return true;
+            default:
+                System.out.println("Incorrect Category");
+                return false;
 
-
-
-
-
+        }
+    }
+    public void addItemToSL(ItemParent item){
         if (item.notPresent(shoppingList)) {
             for (int j = 0; j < shoppingList.length; j++) {
                 if (shoppingList[j] == null) {
                     shoppingList[j] = item;
                     System.out.println(item.getDescription() + " added to list!");
                     counter++;
-                    return true;
+                    return;
                 }
             }
         }
         System.out.println("You have entered a non unique item. Please try again.");
-            return false;
     }
 
     //printShoppingList() method prints the user's shopping list
-    public void printList(Item[] list) {
-        System.out.println("----------------------------------");
-        System.out.printf("%-10s %-10s %-10s%n", "| Description","| Priority", "| Price |");
-        System.out.println("----------------------------------");
+    public void printList(ItemParent[] list) {
+        System.out.println("---------------------------------------------");
+        System.out.printf("%-10s %-10s %-10s %-10s%n","| Category", "| Description","| Priority", "| Price |");
+        System.out.println("---------------------------------------------");
 
         String blank = " ";
 
-        for (Item i : list) {
+        for (ItemParent i : list) {
             if (i != null) {
-
+                String categoryColumn = blank+ String.valueOf(i.getClass()).split(" ")[1] + blank.repeat(7- i.getDescription().length());
                 String descColumn = blank +i.getDescription() + blank.repeat(12- i.getDescription().length());
                 String priorColumn = blank.repeat(5)+ i.getPriority() + blank.repeat(7-Double.toString(i.getPriority()).length());
                 String costColumn = blank.repeat(1)+ df.format(i.getCost()) + blank.repeat(5-Double.toString(i.getCost()).length());
 
-                System.out.println("|" + descColumn+ "|" + priorColumn + "|" + costColumn + "|");
+                System.out.println(categoryColumn+ "|" + descColumn+ "|" + priorColumn + "|" + costColumn + "|");
             }
         }
     }
@@ -133,13 +146,13 @@ public class User {
     public void makePurchases(double budget){
 
         sortShoppingList();
-        Item[] purchases = new Item[10];
+        ItemParent[] purchases = new ItemParent[10];
 
         int ctr = 0;
 
         System.out.println("Your initial budget is: " + budget);
 
-        for (Item i: shoppingList){
+        for (ItemParent i: shoppingList){
 
             if (i.getCost() <= budget){
                 purchases[ctr] = i;
@@ -167,20 +180,20 @@ public class User {
     }
 
 //    Removes null objects from an array
-    private Item[] removeNull(Item[] list){
+    private ItemParent[] removeNull(ItemParent[] list){
 
         // Count the number of non-null items
         int ctr = 0;
-        for (Item i: list){
+        for (ItemParent i: list){
             if (i != null){
                 ctr++;
             }
         }
         // Create a new list of the same size as the number of non-null items
-        Item[] newList = new Item[ctr];
+        ItemParent[] newList = new ItemParent[ctr];
         // Copy the non-null items to the new list
         ctr = 0;
-        for (Item i: list){
+        for (ItemParent i: list){
             if (i != null){
                 newList[ctr] = i;
                 ctr++;

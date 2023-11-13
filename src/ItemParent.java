@@ -1,9 +1,13 @@
-public abstract class Item{
-    private String description;
-    private int priority;
-    private double cost;
+public abstract class ItemParent {
+    private final String description;
+    private final int priority;
+    private final double cost;
 
-    public Item(String des, int pri, double cos) {
+    public ItemParent(String des, int pri, double cos) {
+        this.description = des;
+        this.priority = pri;
+        this.cost = cos;
+
     }
 
 
@@ -21,12 +25,12 @@ public abstract class Item{
         return cost;
     }
 
-    public boolean equals(Item j){
+    public boolean equals(ItemParent j){
         return (description.equalsIgnoreCase(j.description) || priority == j.priority);//                && (cost == j.cost));
     }
 
-    public boolean notPresent(Item[] shoppingList){
-        for (Item i : shoppingList){
+    public boolean notPresent(ItemParent[] shoppingList){
+        for (ItemParent i : shoppingList){
             if (i != null){
                 if (this.equals(i)){
                     return false;
@@ -35,4 +39,6 @@ public abstract class Item{
         }
         return true;
     }
+
+
 }

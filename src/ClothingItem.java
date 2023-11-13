@@ -1,6 +1,6 @@
-public class ClothingItem extends Item{
+public class ClothingItem extends ItemParent {
 
     public ClothingItem(String description, int priority, double cost) {
-        super();
+        super(description, priority, cost);
     }
 }

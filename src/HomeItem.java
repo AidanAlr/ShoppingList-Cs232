@@ -1,10 +1,6 @@
-public class HomeItem extends Item{
+public class HomeItem extends ItemParent {
     public HomeItem(String des, int pri, double cos) {
         super(des, pri, cos);
     }
 
-    @Override
-    public int getPriority() {
-        return super.getPriority();
-    }
 }
