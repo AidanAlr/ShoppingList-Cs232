@@ -88,7 +88,7 @@ public class User {
             }
         }
 
-        switch (category){
+        switch(category){
             case "home":
                 addItemToSL(new HomeItem(description, priority, cost));
                 return true;
