@@ -142,15 +142,14 @@ public class User implements UserInterface {
 
     // Method to print the shopping list
     public void printList(Item[] list) {
-        System.out.println("---------------------------------------------");
+        System.out.println("------------------------------------------------");
         System.out.printf("%-13s %-10s %-10s %-10s%n","| Category", "| Description","| Priority", "| Price |");
-        System.out.println("---------------------------------------------");
-
-        String blank = " ";
+        System.out.println("------------------------------------------------");
 
         // Iterate through the list and print each item
         for (Item i : list) {
             if (i != null) {
+                String blank = " ";
                 // Format and print each column of the item
                 String categoryColumn = blank + String.valueOf(i.getClass()).split(" ")[1] + blank.repeat(12 - String.valueOf(i.getClass()).split(" ")[1].length());
                 String descColumn = blank + i.getDescription() + blank.repeat(12 - i.getDescription().length());
@@ -194,13 +193,11 @@ public class User implements UserInterface {
 
         // Call the removeNull class to remove unwanted nulls
         removeNull removeNull = new removeNull();
-
-        purchases = removeNull.execute(purchases);
-        purchasedList = purchases;
+        purchasedList = removeNull.execute(purchases);
 
         // Iterate through the shopping list to populate the not purchased list
         for(int i=0; i<shoppingList.length; i++ ){
-            if (shoppingList[i].notPresent(purchases)){
+            if (shoppingList[i].notPresent(purchasedList)){
                 notPurchasedList[i] = shoppingList[i];
             }
         }

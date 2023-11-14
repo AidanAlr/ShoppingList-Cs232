@@ -1,4 +1,4 @@
-public abstract class Item {
+public abstract class Item implements ItemInterface{
     private final String description;
     private final int priority;
     private final double cost;
@@ -9,22 +9,15 @@ public abstract class Item {
         this.cost = cos;
 
     }
-
-
     public int getPriority(){
         return priority;
     }
-
-
     public String getDescription(){
         return description;
     }
-
-
     public double getCost(){
         return cost;
     }
-
     public boolean equals(Item j){
         return (description.equalsIgnoreCase(j.description) || priority == j.priority);//                && (cost == j.cost));
     }
