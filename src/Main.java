@@ -15,8 +15,12 @@ public class Main {
         // Adding items to the list
         while (itemsToAdd > 0) {
             // If the user successfully adds an item, decrement the itemsToAdd counter
-            if (user.addItemToShoppingList()) {
+            try {
+                user.addItemToSL(user.createItem());
                 itemsToAdd--;
+                }
+            catch (Exception NonUniqueException){
+                System.out.println("Non-unique item please enter a new one!");
             }
         }
 

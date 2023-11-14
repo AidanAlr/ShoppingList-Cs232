@@ -52,7 +52,7 @@ public class User implements UserInterface {
     }
 
     // Method to add an item to the shopping list
-    public boolean addItemToShoppingList() {
+    public Item createItem() {
         // Scanner for user input
         Scanner scanner = new Scanner(System.in);
 
@@ -74,6 +74,7 @@ public class User implements UserInterface {
             }
         }
         while (!validCategory);
+
 
 
         // Get item description from the user
@@ -106,25 +107,41 @@ public class User implements UserInterface {
             }
         }
 
+        String calories = null;
+        boolean calories_bool = false;
+        if (categoryEntry.equalsIgnoreCase("food")){
+            System.out.println("would you like to enter calories for " + description + "(Y/N)");
+            if (scanner.nextLine().equalsIgnoreCase("Y")){
+                calories_bool = true;
+                System.out.println("Please enter the calories for your item:");
+                calories = scanner.nextLine();
+            }
+
+        }
+
         // Create the appropriate item based on the category and add it to the shopping list
         switch (categoryEntry) {
             case "home":
-                addItemToSL(new HomeItem(description, priority, cost));
-                return true;
+                return new HomeItem(description, priority, cost);
+
             case "food":
-                addItemToSL(new FoodItem(description, priority, cost));
-                return true;
+                if (calories_bool)
+                {
+                    return new FoodItem(description, priority, cost, calories);
+                }
+                else
+                {
+                    return new FoodItem(description, priority, cost);
+                }
             case "clothing":
-                addItemToSL(new ClothingItem(description, priority, cost));
-                return true;
-            default:
-                System.out.println("Incorrect Category");
-                return false;
+                return new ClothingItem(description, priority, cost);
         }
+        return null;
     }
 
     // Method to add an item to the shopping list
-    public void addItemToSL(Item item){
+    public void addItemToSL(Item item) throws NonUniqueException {
+
         if (item.notPresent(shoppingList)) {
             for (int j = 0; j < shoppingList.length; j++) {
                 if (shoppingList[j] == null) {
@@ -137,6 +154,7 @@ public class User implements UserInterface {
         }
         else{
             System.out.println("You have entered a non-unique item. Please try again.");
+            throw new NonUniqueException();
         }
     }
 
@@ -147,12 +165,20 @@ public class User implements UserInterface {
         System.out.println("------------------------------------------------");
 
         // Iterate through the list and print each item
+        String descColumn;
         for (Item i : list) {
             if (i != null) {
                 String blank = " ";
                 // Format and print each column of the item
                 String categoryColumn = blank + String.valueOf(i.getClass()).split(" ")[1] + blank.repeat(12 - String.valueOf(i.getClass()).split(" ")[1].length());
-                String descColumn = blank + i.getDescription() + blank.repeat(12 - i.getDescription().length());
+                if (i.getClass() == FoodItem.class){
+                    String desc_cal = i.getDescription()+ "("+ ((FoodItem) i).getCalories() + ")";
+                    descColumn = blank + desc_cal + blank.repeat(12 - desc_cal.length());
+
+                }
+                else {
+                    descColumn = blank + i.getDescription() + blank.repeat(12 - i.getDescription().length());
+                }
                 String priorColumn = blank.repeat(5) + i.getPriority() + blank.repeat(7 - Double.toString(i.getPriority()).length());
                 String costColumn = blank.repeat(1) + df.format(i.getCost()) + blank.repeat(5 - Double.toString(i.getCost()).length());
 
@@ -164,7 +190,7 @@ public class User implements UserInterface {
     // Method to sort the shopping list using bubble sort
     public void sortShoppingList(){
         Bubble b = new Bubble();
-        shoppingList = b.bubblesort(shoppingList);
+        shoppingList = b.bubbleSort(shoppingList);
     }
 
     // Method to make purchases based on a given budget

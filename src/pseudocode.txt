@@ -6,7 +6,10 @@ User will implement the UserInterface
 Ask the user to enter the number of items that he would like to add to shopping list.
 Create empty array of this size.
 Ask for the category of each item.
-Ask for item description, priority and cost and create an item object of the class of category, add to shopping list.
+Ask for item description, priority and cost.
+If item is a food item, ask for calories, if yes add calories.
+try to Create an item object of the class of category and add to shopping list, if a non unique exception is thrown
+handle it by asking to make new item.
 Check that each item is not present in the shopping list by checking that the description or priority is not equal
 to another item already in the shopping list.
 When comparing attributes between item we use our custom equals method that utilises getters to compare the attributes.

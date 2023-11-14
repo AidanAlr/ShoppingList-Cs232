@@ -1,8 +1,9 @@
 public interface UserInterface {
-    boolean addItemToShoppingList();
+    Item createItem();
     int askListSize();
-    void addItemToSL(Item item);
+    void addItemToSL(Item item) throws NonUniqueException;
     void printList(Item[] list);
     void sortShoppingList();
     void makePurchases(double budget);
+
 }
