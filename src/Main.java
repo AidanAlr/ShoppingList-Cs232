@@ -20,7 +20,8 @@ public class Main {
                 itemsToAdd--;
                 }
             catch (Exception NonUniqueException){
-                System.out.println("Non-unique item please enter a new one!");
+                System.out.println("Please enter a new one!");
+                System.out.println("\n");
             }
         }
 

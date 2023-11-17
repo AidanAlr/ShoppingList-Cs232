@@ -153,7 +153,6 @@ public class User implements UserInterface {
             }
         }
         else{
-            System.out.println("You have entered a non-unique item. Please try again.");
             throw new NonUniqueException();
         }
     }

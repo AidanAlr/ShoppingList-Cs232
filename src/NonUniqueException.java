@@ -1,5 +1,7 @@
 public class NonUniqueException extends Exception{
 
-    public NonUniqueException(){}
+    public NonUniqueException(){
+        System.out.println("Oops! you entered a non unique item!");
+    }
 
 }
