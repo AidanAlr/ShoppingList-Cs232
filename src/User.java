@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.text.DecimalFormat;
@@ -7,12 +8,12 @@ import java.util.List;
 public class User implements UserInterface {
 
     // DecimalFormat to format double values with two decimal places
-    private static final DecimalFormat df = new DecimalFormat("0.00");
+    public static final DecimalFormat df = new DecimalFormat("0.00");
 
     // Attributes for shopping lists and a counter to track the number of items created
     private Item[] shoppingList;
-    private Item[] purchasedList;
-    private Item[] notPurchasedList = new Item[10];
+    private ArrayList<Item> purchasedList = new ArrayList<Item>();
+    private ArrayList<Item> notPurchasedList = new ArrayList<Item>();
 
     // Counter to keep track of the number of items created
     int counter = 1;
@@ -28,12 +29,12 @@ public class User implements UserInterface {
     }
 
     // Method to get the user's purchased list
-    public Item[] getPurchasedList(){
+    public ArrayList<Item> getPurchasedList(){
         return purchasedList;
     }
 
     // Method to get the user's not purchased list
-    public Item[] getNotPurchasedList(){
+    public ArrayList<Item> getNotPurchasedList(){
         return notPurchasedList;
     }
 
@@ -106,6 +107,18 @@ public class User implements UserInterface {
                 System.out.println("Invalid price!");
             }
         }
+        
+        int quantity = 0;
+        while (true) {
+            System.out.println("Please enter the quantity of  " + description);
+            String input = scanner.nextLine();
+            if (input.matches("(-?\\d*\\.?\\d+)")) {
+                quantity = Integer.parseInt(input);
+                break;
+            } else {
+                System.out.println("Invalid quantity!");
+            }
+        }
 
         String calories = null;
         boolean calories_bool = false;
@@ -122,19 +135,19 @@ public class User implements UserInterface {
         // Create the appropriate item based on the category and add it to the shopping list
         switch (categoryEntry) {
             case "home":
-                return new HomeItem(description, priority, cost);
+                return new HomeItem(description, priority, cost, quantity);
 
             case "food":
                 if (calories_bool)
                 {
-                    return new FoodItem(description, priority, cost, calories);
+                    return new FoodItem(description, priority, cost, calories, quantity);
                 }
                 else
                 {
-                    return new FoodItem(description, priority, cost);
+                    return new FoodItem(description, priority, cost, quantity);
                 }
             case "clothing":
-                return new ClothingItem(description, priority, cost);
+                return new ClothingItem(description, priority, cost, quantity);
         }
         return null;
     }
@@ -157,34 +170,7 @@ public class User implements UserInterface {
         }
     }
 
-    // Method to print the shopping list
-    public void printList(Item[] list) {
-        System.out.println("------------------------------------------------");
-        System.out.printf("%-13s %-10s %-10s %-10s%n","| Category", "| Description","| Priority", "| Price |");
-        System.out.println("------------------------------------------------");
 
-        // Iterate through the list and print each item
-        String descColumn;
-        for (Item i : list) {
-            if (i != null) {
-                String blank = " ";
-                // Format and print each column of the item
-                String categoryColumn = blank + String.valueOf(i.getClass()).split(" ")[1] + blank.repeat(12 - String.valueOf(i.getClass()).split(" ")[1].length());
-                if (i.getClass() == FoodItem.class){
-                    String desc_cal = i.getDescription()+ "("+ ((FoodItem) i).getCalories() + ")";
-                    descColumn = blank + desc_cal + blank.repeat(12 - desc_cal.length());
-
-                }
-                else {
-                    descColumn = blank + i.getDescription() + blank.repeat(12 - i.getDescription().length());
-                }
-                String priorColumn = blank.repeat(5) + i.getPriority() + blank.repeat(7 - Double.toString(i.getPriority()).length());
-                String costColumn = blank.repeat(1) + df.format(i.getCost()) + blank.repeat(5 - Double.toString(i.getCost()).length());
-
-                System.out.println("|" + categoryColumn + "|" + descColumn + "|" + priorColumn + "|" + costColumn + "|");
-            }
-        }
-    }
 
     // Method to sort the shopping list using bubble sort
     public void sortShoppingList(){
@@ -192,40 +178,35 @@ public class User implements UserInterface {
         shoppingList = b.bubbleSort(shoppingList);
     }
 
+    private int calculateQuantityCanBuy(double budget, double itemPrice) {
+        if (budget <= 0 || itemPrice <= 0) {
+            return 0; // Cannot buy any if budget or item price is non-positive
+        }
+
+        return (int) (budget / itemPrice);
+    }
+
     // Method to make purchases based on a given budget
     public void makePurchases(double budget){
+        double b = budget;
         sortShoppingList();
-        Item[] purchases = new Item[10];
-
-        int ctr = 0;
-
         System.out.println("Your initial budget is: " + budget);
 
         // Iterate through the shopping list and make purchases
         for (Item i: shoppingList){
-            if (i.getCost() <= budget){
-                purchases[ctr] = i;
-                budget -= i.getCost();
-                System.out.println("Purchased " + i.getDescription() + "(Priority " + i.getPriority() + ") for " + df.format(i.getCost()) + " -> " + df.format(budget) + " remaining");
-                ctr++;
+            int quantityPurchased = Math.min(calculateQuantityCanBuy(b, i.getCost()), i.getQuantity());
+            if (quantityPurchased == 0){
+                notPurchasedList.add(i);
             }
             else {
-                System.out.println("Can't afford " + i.getDescription() + " for " + df.format(i.getCost()) + " -> "+ df.format(budget) + " remaining");
+                int quantityNotPurchased = i.getQuantity()-quantityPurchased;
+                i.setQuantityNotPurchased(quantityNotPurchased);
+                i.setQuantity(quantityPurchased);
+                purchasedList.add(i);
+                b -= (i.getCost() * quantityPurchased);
+                System.out.println("Purchased " + quantityPurchased + " of " + i.getDescription() + "(Priority " + i.getPriority() + ") for " + df.format(i.getCost() * quantityPurchased) + " -> " + df.format(b) + " remaining");
             }
         }
-
         System.out.println("Leftover budget: " + df.format(budget));
-
-        // Call the removeNull class to remove unwanted nulls
-        removeNull removeNull = new removeNull();
-        purchasedList = removeNull.execute(purchases);
-
-        // Iterate through the shopping list to populate the not purchased list
-        for(int i=0; i<shoppingList.length; i++ ){
-            if (shoppingList[i].notPresent(purchasedList)){
-                notPurchasedList[i] = shoppingList[i];
-            }
-        }
-        notPurchasedList = removeNull.execute(notPurchasedList);
     }
 }

@@ -1,13 +1,12 @@
 public class FoodItem extends Item {
-
     private final String calories;
-    public FoodItem(String description, int priority, double cost) {
-        super(description, priority, cost);
+    public FoodItem(String description, int priority, double cost, int quantity) {
+        super(description, priority, cost, quantity);
         calories = "";
     }
 
-    public FoodItem(String description, int priority, double cost, String calories){
-        super(description, priority, cost);
+    public FoodItem(String description, int priority, double cost, String calories, int quantity){
+        super(description, priority, cost, quantity);
         this.calories = calories;
     }
 

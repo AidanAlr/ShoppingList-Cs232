@@ -21,3 +21,4 @@ Subtract the cost of the item from the budget.
 If the price of an item is greater than the budget move it to the not purchased list and move on.
 Once the budget is less than the cost of all the remaining items stop purchasing.
 Print the purchased list, not purchased list and the leftover budget.
+Write the purchased list to a csv file.

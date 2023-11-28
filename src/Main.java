@@ -1,11 +1,12 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // Creating the user
         User user = new User();
-
+        MyPrinter myPrinter = new MyPrinter();
         // Creating the shopping list
         user.setShoppingList();
 
@@ -19,16 +20,15 @@ public class Main {
                 user.addItemToSL(user.createItem());
                 itemsToAdd--;
                 }
-            catch (Exception NonUniqueException){
+            catch (NonUniqueException e){
                 System.out.println("Please enter a new one!");
-                System.out.println("\n");
             }
         }
 
         // Printing the sorted shopping list
         user.sortShoppingList();
         System.out.println("Shopping List: ");
-        user.printList(user.getShoppingList());
+        myPrinter.printList(user.getShoppingList());
 
         // Prompting the user to enter their budget (default is $59)
         System.out.println("Please enter your budget (leave blank for default $59) ->");
@@ -45,11 +45,16 @@ public class Main {
         user.makePurchases(budget);
 
         // Printing Purchases
-        System.out.println("Purchases (" + user.getPurchasedList().length + " items)");
-        user.printList(user.getPurchasedList());
+        System.out.println("Purchases (" + user.getPurchasedList().size() + " items)");
+        myPrinter.printList(user.getPurchasedList());
 
         // Printing not purchased items
-        System.out.println("Not purchased (" + user.getNotPurchasedList().length + " items)");
-        user.printList(user.getNotPurchasedList());
+        System.out.println("Not purchased (" + user.getNotPurchasedList().size() + " items)");
+        myPrinter.printList(user.getNotPurchasedList());
+
+        FileManager fm = new FileManager();
+        fm.createFile();
+        fm.WriteToFile(user.getPurchasedList());
+        System.out.println("Updated purchased_list.csv");
     }
 }
