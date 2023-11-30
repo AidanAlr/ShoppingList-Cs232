@@ -45,16 +45,21 @@ public class Main {
         user.makePurchases(budget);
 
         // Printing Purchases
-        System.out.println("Purchases (" + user.getPurchasedList().size() + " items)");
+        System.out.println("Purchased (" + user.getPurchasedList().size() + " items)");
         myPrinter.printList(user.getPurchasedList());
 
         // Printing not purchased items
-        System.out.println("Not purchased (" + user.getNotPurchasedList().size() + " items)");
-        myPrinter.printList(user.getNotPurchasedList());
+        System.out.println("Not purchased items");
+        myPrinter.printNonPurchasedList(user.getPurchasedList());
 
+
+//      File manager logic
         FileManager fm = new FileManager();
-        fm.createFile();
-        fm.WriteToFile(user.getPurchasedList());
-        System.out.println("Updated purchased_list.csv");
+
+        fm.createFile("PurchasedList.csv");
+        fm.createFile("NotPurchasedList.csv");
+
+        fm.WriteListToFile(user.getPurchasedList(), "PurchasedList.csv");
+        fm.WriteNotPurchasedListToFile(user.getPurchasedList(), "NotPurchasedList.csv");
     }
 }

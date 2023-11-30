@@ -6,34 +6,34 @@ import java.io.FileWriter;
 import java.io.BufferedWriter;
 
 public class FileManager {
-   String fileName = "purchased_list.csv";
-    File myFile = new File(fileName);
-    public boolean fileExists(){
+    public boolean fileExists(String pathname){
+        File f = new File(pathname);
         try{
-            Scanner sc = new Scanner(myFile);
+            Scanner sc = new Scanner(f);
             sc.hasNextLine();
             return true;
         }
         catch(Exception e){
-            System.out.println("Could not find file!");
+            System.out.println("Could not find" + f.getPath());
             return false;
         }
     }
 
-    public void createFile() throws IOException {
-         if(!fileExists()){
-             myFile.createNewFile();
-             System.out.println("Created new file!");
+    public void createFile(String pathname) throws IOException {
+        File f = new File(pathname);
+        if(!fileExists(pathname)){
+             f.createNewFile();
+             System.out.println("Created " + f.getPath());
          }
          else{
-             System.out.println("File Already Exists");
+             System.out.println(f.getPath() + " already exists");
          }
-
     }
 
-    public void WriteToFile(ArrayList<Item> a ){
+    public void WriteListToFile(ArrayList<Item> a, String pathname){
+        File f = new File(pathname);
         try{
-            FileWriter filewriter = new FileWriter(fileName);
+            FileWriter filewriter = new FileWriter(f);
             BufferedWriter bufferedWriter = new BufferedWriter(filewriter);
             bufferedWriter.write("Class,Description,Cost,Priority,Quantity");
             bufferedWriter.newLine();
@@ -42,12 +42,33 @@ public class FileManager {
                 bufferedWriter.write(temp);
                 bufferedWriter.newLine();
             }
+            System.out.println("Updated "+f.getPath());
             bufferedWriter.close();
         }
         catch (Exception e) {
             System.out.println("Error occurred writing to file!");
-
         }
     }
+
+    public void WriteNotPurchasedListToFile(ArrayList<Item> a, String pathname){
+        File f = new File(pathname);
+        try{
+            FileWriter filewriter = new FileWriter(f);
+            BufferedWriter bufferedWriter = new BufferedWriter(filewriter);
+            bufferedWriter.write("Class,Description,Cost,Priority,Quantity");
+            bufferedWriter.newLine();
+            for(Item item : a){
+                String temp = (String.valueOf(item.getClass()).split(" ")[1]+ "," + item.getDescription() + "," + item.getCost() + "," + item.getPriority() + "," + item.getQuantityNotPurchased());
+                bufferedWriter.write(temp);
+                bufferedWriter.newLine();
+            }
+            System.out.println("Updated "+f.getPath());
+            bufferedWriter.close();
+        }
+        catch (Exception e) {
+            System.out.println("Error occurred writing to file!");
+        }
+    }
+
 
 }
