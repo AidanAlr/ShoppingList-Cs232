@@ -34,7 +34,6 @@ public class FileManager {
     // Write the shopping list data to a file
     public void writeListToFile(ArrayList<Item> a, String pathname) {
 
-
         File f = new File(pathname);
         try {
             FileWriter fileWriter = new FileWriter(f);
@@ -46,9 +45,22 @@ public class FileManager {
 
             // Write each item's data
             for (Item item : a) {
-                String temp = getString(pathname, item);
+                int q = 0;
+                switch (pathname) {
+                    case "PurchasedList.csv":
+                        q = item.getQuantityPurchased();
+                        break;
+                    case "NotPurchasedList.csv":
+                        q = item.getQuantityNotPurchased();
+                        break;
+                    default:
+                        break;
+                }
+                if(q > 0){
+                String temp = getRowString(pathname, item);
                 bufferedWriter.write(temp);
                 bufferedWriter.newLine();
+                }
             }
 
             System.out.println("Updated " + f.getPath());
@@ -58,7 +70,7 @@ public class FileManager {
         }
     }
 
-    private static String getString(String pathname, Item item) {
+    private static String getRowString(String pathname, Item item) {
         int quantity = 0;
         if (pathname.equals("PurchasedList.csv")){
             quantity = item.getQuantityPurchased();
@@ -66,11 +78,11 @@ public class FileManager {
             quantity = item.getQuantityNotPurchased();
         }
 
-        String temp = (String.valueOf(item.getClass()).split(" ")[1]
+        return (String.valueOf(
+                item.getClass()).split(" ")[1]
                 + "," + item.getDescription()
                 + "," + item.getCost()
                 + "," + item.getPriority()
                 + "," + quantity);
-        return temp;
     }
 }

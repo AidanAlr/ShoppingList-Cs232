@@ -12,7 +12,22 @@ public class MyPrinter implements PrintInterface {
 
         // Iterate through the list and print each item
         for (Item i : list) {
-            if (i != null) {
+            int q = 0;
+            switch (neededQuantity) {
+                case "quantity":
+                    q = i.getQuantity();
+                    break;
+                case "quantityPurchased":
+                    q = i.getQuantityPurchased();
+                    break;
+                case "quantityNotPurchased":
+                    q = i.getQuantityNotPurchased();
+                    break;
+                default:
+                    break;
+            }
+
+            if (i != null && q != 0) {
                 // Initialize variables for formatting columns
                 String blank = " ";
                 String descColumn;
@@ -31,22 +46,7 @@ public class MyPrinter implements PrintInterface {
 
                 String priorColumn = blank.repeat(5) + i.getPriority() + blank.repeat(7 - Double.toString(i.getPriority()).length());
                 String costColumn = blank.repeat(1) + User.df.format(i.getCost()) + blank.repeat(6 - Double.toString(i.getCost()).length());
-
-                String quantityColumn = null;
-                // Switch statement to handle different quantity types
-                switch (neededQuantity) {
-                    case "quantity":
-                        quantityColumn = blank.repeat(1) + i.getQuantity() + blank.repeat(9 - Integer.toString(i.getQuantity()).length());
-                        break;
-                    case "quantityPurchased":
-                        quantityColumn = blank.repeat(1) + i.getQuantityPurchased() + blank.repeat(9 - Integer.toString(i.getQuantityPurchased()).length());
-                        break;
-                    case "quantityNotPurchased":
-                        quantityColumn = blank.repeat(1) + i.getQuantityNotPurchased() + blank.repeat(9 - Integer.toString(i.getQuantityNotPurchased()).length());
-                        break;
-                    default:
-                        break;
-                }
+                String quantityColumn = blank.repeat(1) + q + blank.repeat(9 - Integer.toString(q).length());
 
                 // Print the formatted item row
                 System.out.println("|" + categoryColumn + "|" + descColumn + "|" + priorColumn + "|" + costColumn + "|" + quantityColumn + "|");
