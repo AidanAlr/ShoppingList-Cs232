@@ -1,9 +1,13 @@
+import java.util.ArrayList;
+
 public abstract class Item implements ItemInterface{
     private final String description;
     private final int priority;
     private final double cost;
     private int quantity;
     private int quantityNotPurchased;
+    private int quantityPurchased;
+
 
     public Item(String des, int pri, double cos, int qua) {
         this.description = des;
@@ -29,8 +33,10 @@ public abstract class Item implements ItemInterface{
         return cost;
     }
     public int getQuantity(){return quantity;}
-
     public void setQuantity(int quantity){this.quantity = quantity;}
+
+    public void setQuantityPurchased(int quantityPurchased){this.quantityPurchased = quantityPurchased;}
+    public int getQuantityPurchased(){return quantityPurchased;}
 
     public void setQuantityNotPurchased(int quantityNotPurchased){this.quantityNotPurchased = quantityNotPurchased;}
     public int getQuantityNotPurchased(){return quantityNotPurchased;}
@@ -38,7 +44,7 @@ public abstract class Item implements ItemInterface{
         return (description.equalsIgnoreCase(j.description) || priority == j.priority);//                && (cost == j.cost));
     }
 
-    public boolean notPresent(Item[] shoppingList){
+    public boolean notPresent(ArrayList<Item> shoppingList){
         for (Item i : shoppingList){
             if (i != null){
                 if (this.equals(i)){
@@ -48,6 +54,5 @@ public abstract class Item implements ItemInterface{
         }
         return true;
     }
-
 
 }

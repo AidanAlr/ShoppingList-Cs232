@@ -11,27 +11,15 @@ public class User implements UserInterface {
     public static final DecimalFormat df = new DecimalFormat("0.00");
 
     // Attributes for shopping lists and a counter to track the number of items created
-    private Item[] shoppingList;
-    private ArrayList<Item> purchasedList = new ArrayList<Item>();
+    private ArrayList<Item> shoppingList = new ArrayList<Item>();
 
     // Counter to keep track of the number of items created
     int counter = 1;
 
     // Method to get the user's shopping list
-    public Item[] getShoppingList() {
+    public ArrayList<Item> getShoppingList(){
         return shoppingList;
     }
-
-    // Method to set the user's empty shopping list
-    public void setShoppingList() {
-        this.shoppingList = new Item[askListSize()];
-    }
-
-    // Method to get the user's purchased list
-    public ArrayList<Item> getPurchasedList(){
-        return purchasedList;
-    }
-
 
     // Method to ask the user how many items they want to add to their list
     public int askListSize() {
@@ -70,8 +58,6 @@ public class User implements UserInterface {
             }
         }
         while (!validCategory);
-
-
 
         // Get item description from the user
         System.out.println("Please enter a description of your " + categoryEntry + " item");
@@ -147,19 +133,13 @@ public class User implements UserInterface {
     // Method to add an item to the shopping list
     public void addItemToSL(Item item) throws NonUniqueException {
         if (item.notPresent(shoppingList)) {
-            for (int j = 0; j < shoppingList.length; j++) {
-                if (shoppingList[j] == null) {
-                    shoppingList[j] = item;
-                    System.out.println(item.getDescription() + " added to list!");
-                    counter++;
-                    break;
-                }
-            }
-        }
-        else{
+            shoppingList.add(item);
+            System.out.println(item.getDescription() + " added to list!");
+        } else {
             throw new NonUniqueException();
         }
     }
+
 
     // Method to sort the shopping list using bubble sort
     public void sortShoppingList(){
@@ -184,10 +164,11 @@ public class User implements UserInterface {
         // Iterate through the shopping list and make purchases
         for (Item i: shoppingList){
             int quantityPurchased = Math.min(calculateQuantityCanBuy(b, i.getCost()), i.getQuantity());
+            i.setQuantityPurchased(quantityPurchased);
+
             int quantityNotPurchased = i.getQuantity()-quantityPurchased;
             i.setQuantityNotPurchased(quantityNotPurchased);
-            i.setQuantity(quantityPurchased);
-            purchasedList.add(i);
+
             b -= (i.getCost() * quantityPurchased);
             System.out.println("Purchased " + quantityPurchased + " of " + i.getDescription() + "(Priority " + i.getPriority() + ") for " + df.format(i.getCost() * quantityPurchased) + " -> " + df.format(b) + " remaining");
         }

@@ -1,10 +1,9 @@
-Create a parent class called Item which will store 3 private attributes description, priority and cost, and contain our item methods.
+Create a parent class called Item which will store attributes description, priority, cost, quantity, quantity purchased, quantity not purchased
 Item will implement the ItemInterface.
 Create 3 child classes FoodItem, ClothingItem, HomeItem which will inherit from Item.
 Create a user class with a shopping list attribute, as well as a purchased list, and not purchased list.
 User will implement the UserInterface
 Ask the user to enter the number of items that he would like to add to shopping list.
-Create empty array of this size.
 Ask for the category of each item.
 Ask for item description, priority and cost.
 If item is a food item, ask for calories, if yes add calories.
@@ -16,9 +15,9 @@ When comparing attributes between item we use our custom equals method that util
 If the item is not present in the shopping list, add it to the shopping list.
 Sort the shopping list by priority.
 Once all items are added to the shopping list, ask the user to enter there budget.
-Buy item from the shopping list in order of priority.Add to user purchased list.
+Buy item from the shopping list in order of priority, only allow purchases when the budget exceeds price.
+Adjust the quantity purchased and quantity not purchased of the items.
 Subtract the cost of the item from the budget.
-If the price of an item is greater than the budget move it to the not purchased list and move on.
 Once the budget is less than the cost of all the remaining items stop purchasing.
 Print the purchased list, not purchased list and the leftover budget.
-Write the purchased list to a csv file.
+Write these outputs to csv file.

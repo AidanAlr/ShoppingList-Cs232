@@ -1,5 +1,5 @@
 import java.util.ArrayList;
 
 public interface PrintInterface {
-    void printList(ArrayList<Item> list);
+    void printList(ArrayList<Item> list, String neededQuantity);
 }

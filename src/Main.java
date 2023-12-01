@@ -4,14 +4,12 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        // Creating the user
+        // Creating the user and printer objects
         User user = new User();
         MyPrinter myPrinter = new MyPrinter();
-        // Creating the shopping list
-        user.setShoppingList();
 
         // Getting the number of items to add to the list
-        int itemsToAdd = user.getShoppingList().length;
+        int itemsToAdd = user.askListSize();
 
         // Adding items to the list
         while (itemsToAdd > 0) {
@@ -19,8 +17,7 @@ public class Main {
             try {
                 user.addItemToSL(user.createItem());
                 itemsToAdd--;
-                }
-            catch (NonUniqueException e){
+            } catch (NonUniqueException e) {
                 System.out.println("Please enter a new one!");
             }
         }
@@ -28,7 +25,7 @@ public class Main {
         // Printing the sorted shopping list
         user.sortShoppingList();
         System.out.println("Shopping List: ");
-        myPrinter.printList(user.getShoppingList());
+        myPrinter.printList(user.getShoppingList(), "quantity");
 
         // Prompting the user to enter their budget (default is $59)
         System.out.println("Please enter your budget (leave blank for default $59) ->");
@@ -45,21 +42,22 @@ public class Main {
         user.makePurchases(budget);
 
         // Printing Purchases
-        System.out.println("Purchased (" + user.getPurchasedList().size() + " items)");
-        myPrinter.printList(user.getPurchasedList());
+        System.out.println("Purchased items");
+        myPrinter.printList(user.getShoppingList(), "quantityPurchased");
 
         // Printing not purchased items
         System.out.println("Not purchased items");
-        myPrinter.printNonPurchasedList(user.getPurchasedList());
+        myPrinter.printList(user.getShoppingList(), "quantityNotPurchased");
 
-
-//      File manager logic
+        // File manager logic
         FileManager fm = new FileManager();
 
+        // Creating files for purchased and not purchased lists
         fm.createFile("PurchasedList.csv");
         fm.createFile("NotPurchasedList.csv");
 
-        fm.WriteListToFile(user.getPurchasedList(), "PurchasedList.csv");
-        fm.WriteNotPurchasedListToFile(user.getPurchasedList(), "NotPurchasedList.csv");
+        // Writing shopping list data to respective files
+        fm.writeListToFile(user.getShoppingList(), "PurchasedList.csv");
+        fm.writeListToFile(user.getShoppingList(), "NotPurchasedList.csv");
     }
 }
