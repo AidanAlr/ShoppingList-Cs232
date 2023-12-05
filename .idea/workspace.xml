@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="945c7ac0-89b2-4120-a66e-9bdea6249003" name="Changes" comment="Rework">
+    <list default="true" id="945c7ac0-89b2-4120-a66e-9bdea6249003" name="Changes" comment="Assignment 5">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FileManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MyPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MyPrinter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,12 +17,29 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="aidan &lt;aidanalrawi@icloud.com&gt;" />
+      </list>
+    </option>
+    <option name="PUSH_AUTO_UPDATE" value="true" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
@@ -41,19 +58,43 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;assignment-4&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;onboarding.tips.debug.path&quot;: &quot;/Users/aidanalrawi/IdeaProjects/Shopping list cs232/src/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.uml&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="Push.Settings">
+    <force-push-targets>
+      <force-push-target remote-path="origin" branch="assignment-4" />
+    </force-push-targets>
+  </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="ShoppingList-Cs232" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="ShoppingList-Cs232" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -64,7 +105,25 @@
       <option name="presentableId" value="Default" />
       <updated>1696449296168</updated>
       <workItem from="1696449299221" duration="6332000" />
-      <workItem from="1697160709359" duration="15250000" />
+      <workItem from="1697160709359" duration="18243000" />
+      <workItem from="1697508897584" duration="549000" />
+      <workItem from="1697578827912" duration="8311000" />
+      <workItem from="1697757970324" duration="719000" />
+      <workItem from="1698175757047" duration="3183000" />
+      <workItem from="1698179175986" duration="560000" />
+      <workItem from="1698179857510" duration="13000" />
+      <workItem from="1698184003873" duration="717000" />
+      <workItem from="1699397760739" duration="3039000" />
+      <workItem from="1699745062326" duration="975000" />
+      <workItem from="1699820107939" duration="5341000" />
+      <workItem from="1699851591888" duration="3047000" />
+      <workItem from="1699926669303" duration="2835000" />
+      <workItem from="1700000949783" duration="6975000" />
+      <workItem from="1700183762754" duration="1264000" />
+      <workItem from="1700606394069" duration="454000" />
+      <workItem from="1701132507967" duration="8920000" />
+      <workItem from="1701209607691" duration="9360000" />
+      <workItem from="1701389624448" duration="1056000" />
     </task>
     <task id="LOCAL-00001" summary="Rework">
       <option name="closed" value="true" />
@@ -98,7 +157,111 @@
       <option name="project" value="LOCAL" />
       <updated>1697181372769</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Rework">
+      <option name="closed" value="true" />
+      <created>1697211671940</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1697211671940</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Rework">
+      <option name="closed" value="true" />
+      <created>1699820121178</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1699820121178</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Rework">
+      <option name="closed" value="true" />
+      <created>1699852944640</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1699852944640</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Rework">
+      <option name="closed" value="true" />
+      <created>1699853013440</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1699853013440</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Rework">
+      <option name="closed" value="true" />
+      <created>1699853066219</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1699853066219</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Rework">
+      <option name="closed" value="true" />
+      <created>1700001259470</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1700001259470</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Rework">
+      <option name="closed" value="true" />
+      <created>1700007374508</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1700007374508</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Rework">
+      <option name="closed" value="true" />
+      <created>1700007412497</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1700007412497</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Rework">
+      <option name="closed" value="true" />
+      <created>1700183789434</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1700183789434</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Rework">
+      <option name="closed" value="true" />
+      <created>1701201039743</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1701201039743</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Rework">
+      <option name="closed" value="true" />
+      <created>1701209629840</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1701209629840</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Rework">
+      <option name="closed" value="true" />
+      <created>1701386647845</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1701386647845</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Assignment 5">
+      <option name="closed" value="true" />
+      <created>1701389434149</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1701389434149</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -116,7 +279,13 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="new" />
     <MESSAGE value="Rework" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rework" />
+    <MESSAGE value="Assignment 5" />
+    <option name="LAST_COMMIT_MESSAGE" value="Assignment 5" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
